@@ -1,4 +1,6 @@
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 public class Human {
@@ -6,10 +8,16 @@ public class Human {
     private String surname;
     private int year;
     private byte iq;
-    private Pet pet;
-    private Human mother;
-    private Human father;
     private String[][] schedule;
+    private Family family;
+
+    static {
+        System.out.println("Loading class: " + Human.class);
+    }
+
+    {
+        System.out.println("Creating new instance of type " + this.getClass());
+    }
 
     public Human() {
     }
@@ -20,22 +28,11 @@ public class Human {
         this.year = year;
     }
 
-    public Human(String name, String surname, int year, Human mother, Human father) {
-        this.name = name;
-        this.surname = surname;
-        this.year = year;
-        this.mother = mother;
-        this.father = father;
-    }
-
-    public Human(String name, String surname, int year, byte iq, Pet pet, Human mother, Human father, String[][] schedule) {
+    public Human(String name, String surname, int year, byte iq, String[][] schedule) {
         this.name = name;
         this.surname = surname;
         this.year = year;
         this.iq = iq > 0 && iq <101 ? iq: 50;
-        this.pet = pet;
-        this.mother = mother;
-        this.father = father;
         this.schedule = schedule;
     }
 
@@ -55,14 +52,6 @@ public class Human {
         }
     }
 
-    public Human getMother() {
-        return mother;
-    }
-
-    public Human getFather() {
-        return father;
-    }
-
     public String getName() {
         return name;
     }
@@ -79,20 +68,20 @@ public class Human {
         this.surname = surname;
     }
 
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
     public String[][] getSchedule() {
         return schedule;
     }
 
     public void setSchedule(String[][] schedule) {
         this.schedule = schedule;
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
     }
 
     @Override
@@ -102,32 +91,54 @@ public class Human {
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
-                ", mother=" + (mother != null ? mother.getName() + " " + mother.getSurname() : "No data") +
-                ", father=" + (father != null ? father.getName() + " " + father.getSurname() : "No data") +
-                ", pet=" + (pet != null ? pet : "No data") +
+                ", schedule=" + Arrays.deepToString(schedule) +
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Human human = (Human) o;
+        return year == human.year &&
+                iq == human.iq &&
+                Objects.equals(name, human.name) &&
+                Objects.equals(surname, human.surname) &&
+                Objects.equals(family, human.family);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, year, iq, family);
+    }
+
     public void greetPet(){
-        System.out.println("Привет, " + pet.getNickname());
+        System.out.println("Привет, " + family.getPet().getNickname());
     }
 
     public void describePet(){
-        System.out.println("У меня есть " + pet.getSpecies() + ", ему " + pet.getAge() + " лет, он " + (pet.getTrickLevel() > 50 ? "очень хитрый": "почти не хитрый"));
+        System.out.println("У меня есть " + family.getPet().getSpecies() + ", ему " + family.getPet().getAge() + " лет, он " + (family.getPet().getTrickLevel() > 50 ? "очень хитрый": "почти не хитрый"));
     }
 
     public boolean feedPet(boolean isItFeedingTime){
         if (isItFeedingTime){
-            System.out.println("Хм... покормлю ка я " + pet.getNickname());
+            System.out.println("Хм... покормлю ка я " + family.getPet().getNickname());
             return true;
         } else {
             Random random = new Random();
             byte trick = (byte) random.nextInt(100);
-            if (pet.getTrickLevel() > trick) {
-                System.out.println("Хм... покормлю ка я " + pet.getNickname());
+            if (family.getPet().getTrickLevel() > trick) {
+                System.out.println("Хм... покормлю ка я " + family.getPet().getNickname());
                 return true;
             }
             return false;
+        }
+    }
+
+    public void createFamily() {
+        int currYear = LocalDate.now().getYear();
+        if (currYear - year > 21) {
+
         }
     }
 }
