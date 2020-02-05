@@ -29,16 +29,8 @@ public class Family {
         return mother;
     }
 
-    public void setMother(Human mother) {
-        this.mother = mother;
-    }
-
     public Human getFather() {
         return father;
-    }
-
-    public void setFather(Human father) {
-        this.father = father;
     }
 
     public Human[] getChildren() {
@@ -83,6 +75,11 @@ public class Family {
                 '}';
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println(this);
+    }
+
     public void addChild(Human child) {
         Human[] newChildrens = new Human[++childCount];
         System.arraycopy(children, 0, newChildrens, 0, children.length);
@@ -92,6 +89,8 @@ public class Family {
     }
 
     public boolean deleteChild(Human child) {
+        int result = children.length;
+        
         if(childCount > 0) {
             Human[] newChildrens = new Human[--childCount];
 
@@ -102,7 +101,6 @@ public class Family {
                 } else {
                     j++;
                     child.setFamily(null);
-                    return true;
                 }
 
                 j++;
@@ -110,7 +108,10 @@ public class Family {
 
             children = newChildrens;
         }
-        return false;
+
+        result -= children.length;
+
+        return (result == 1);
     }
 
     public int countFamily() {

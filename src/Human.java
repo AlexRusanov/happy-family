@@ -113,32 +113,43 @@ public class Human {
     }
 
     public void greetPet(){
-        System.out.println("Привет, " + family.getPet().getNickname());
-    }
-
-    public void describePet(){
-        System.out.println("У меня есть " + family.getPet().getSpecies() + ", ему " + family.getPet().getAge() + " лет, он " + (family.getPet().getTrickLevel() > 50 ? "очень хитрый": "почти не хитрый"));
-    }
-
-    public boolean feedPet(boolean isItFeedingTime){
-        if (isItFeedingTime){
-            System.out.println("Хм... покормлю ка я " + family.getPet().getNickname());
-            return true;
+        if(family.getPet() != null) {
+            System.out.println("Привет, " + family.getPet().getNickname());
         } else {
-            Random random = new Random();
-            byte trick = (byte) random.nextInt(100);
-            if (family.getPet().getTrickLevel() > trick) {
-                System.out.println("Хм... покормлю ка я " + family.getPet().getNickname());
-                return true;
-            }
-            return false;
+            System.out.println("У нас нет питомца");
         }
     }
 
-    public void createFamily() {
-        int currYear = LocalDate.now().getYear();
-        if (currYear - year > 21) {
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println(this);
+    }
 
+    public void describePet(){
+        if(family.getPet() != null) {
+            System.out.println("У меня есть " + family.getPet().getSpecies() + ", ему " + family.getPet().getAge() + " лет, он " + (family.getPet().getTrickLevel() > 50 ? "очень хитрый": "почти не хитрый"));
+        } else {
+            System.out.println("У нас нет питомца");
+        }
+    }
+
+    public boolean feedPet(boolean isItFeedingTime){
+        if(family.getPet() != null) {
+            if (isItFeedingTime){
+                System.out.println("Хм... покормлю ка я " + family.getPet().getNickname());
+                return true;
+            } else {
+                Random random = new Random();
+                byte trick = (byte) random.nextInt(100);
+                if (family.getPet().getTrickLevel() > trick) {
+                    System.out.println("Хм... покормлю ка я " + family.getPet().getNickname());
+                    return true;
+                }
+                return false;
+            }
+        } else {
+            System.out.println("У нас нет питомца");
+            return false;
         }
     }
 }

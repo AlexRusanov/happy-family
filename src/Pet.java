@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Pet {
-    private String species;
+    private Species species;
     private String nickname;
     private int age;
     private byte trickLevel;
@@ -19,12 +19,12 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(String species, String nickname) {
+    public Pet(Species species, String nickname) {
         this.species = species;
         this.nickname = nickname;
     }
 
-    public Pet(String species, String nickname, int age, byte trickLevel, String[] habits) {
+    public Pet(Species species, String nickname, int age, byte trickLevel, String[] habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age > 0 && age <101 ? age: 0;
@@ -32,7 +32,7 @@ public class Pet {
         this.habits = habits;
     }
 
-    public String getSpecies() {
+    public Species getSpecies() {
         return species;
     }
 
@@ -88,6 +88,11 @@ public class Pet {
     @Override
     public int hashCode() {
         return Objects.hash(species, nickname, age, trickLevel);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println(this);
     }
 
     public void eat(){
