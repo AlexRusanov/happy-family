@@ -1,3 +1,3 @@
 public enum Species {
-    ROBOT, RANCOR
+    ROBOCAT, DOG, FISH, DOMESTICCAT, UNKNOWN
 }

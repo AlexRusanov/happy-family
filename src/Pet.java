@@ -1,8 +1,8 @@
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Pet {
-    private Species species;
+abstract public class Pet {
+    private Species species = Species.UNKNOWN;
     private String nickname;
     private int age;
     private byte trickLevel;
@@ -19,13 +19,11 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(Species species, String nickname) {
-        this.species = species;
+    public Pet(String nickname) {
         this.nickname = nickname;
     }
 
-    public Pet(Species species, String nickname, int age, byte trickLevel, String[] habits) {
-        this.species = species;
+    public Pet(String nickname, int age, byte trickLevel, String[] habits) {
         this.nickname = nickname;
         this.age = age > 0 && age <101 ? age: 0;
         this.trickLevel = trickLevel;
@@ -34,6 +32,10 @@ public class Pet {
 
     public Species getSpecies() {
         return species;
+    }
+
+    void setSpecies(Species species) {
+        this.species = species;
     }
 
     public String getNickname() {
@@ -99,11 +101,5 @@ public class Pet {
         System.out.println("Я кушаю!");
     }
 
-    public void respond(){
-        System.out.println("Привет, хозяин. Я - " + nickname + ". Я соскучился!");
-    }
-
-    public void foul(){
-        System.out.println("Нужно хорошо замести следы...");
-    }
+    abstract public void respond();
 }
