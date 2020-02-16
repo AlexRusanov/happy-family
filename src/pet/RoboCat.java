@@ -1,16 +1,19 @@
-public class Dog extends Pet implements PetInterface{
-    public Dog() {
-        super.setSpecies(Species.DOG);
+package pet;
+
+import enums.Species;
+
+import java.util.Set;
+
+public class RoboCat extends Pet implements FoulingPet {
+    public RoboCat() {
     }
 
-    public Dog(String nickname) {
+    public RoboCat(String nickname) {
         super(nickname);
-        super.setSpecies(Species.DOG);
     }
 
-    public Dog(String nickname, int age, byte trickLevel, String[] habits) {
+    public RoboCat(String nickname, int age, byte trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
-        super.setSpecies(Species.DOG);
     }
 
     @Override

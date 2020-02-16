@@ -1,17 +1,20 @@
-public class DomesticCat extends Pet implements PetInterface{
+package pet;
+
+import enums.Species;
+
+import java.util.Set;
+
+public class DomesticCat extends Pet implements FoulingPet {
 
     public DomesticCat() {
-        super.setSpecies(Species.DOMESTICCAT);
     }
 
     public DomesticCat(String nickname) {
         super(nickname);
-        super.setSpecies(Species.DOMESTICCAT);
     }
 
-    public DomesticCat(String nickname, int age, byte trickLevel, String[] habits) {
+    public DomesticCat(String nickname, int age, byte trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
-        super.setSpecies(Species.DOMESTICCAT);
     }
 
     @Override

@@ -1,3 +1,9 @@
+package human;
+
+import pet.Pet;
+
+import java.util.Map;
+
 public final class Man extends Human {
 
     public static final String[] MANNAMES = {"Ben", "Kol", "Nat", "Cade", "Luke", "Anakin"};
@@ -9,14 +15,16 @@ public final class Man extends Human {
         super(name, surname, year);
     }
 
-    public Man(String name, String surname, int year, byte iq, String[][] schedule) {
-        super(name, surname, year, iq, schedule);
+    public Man(String name, String surname, int year, byte iq) {
+        super(name, surname, year, iq);
     }
 
     @Override
-    public void greetPet() {
-        if(super.getFamily().getPet() != null) {
-            System.out.println("Привет лучший друг мужчины, " + super.getFamily().getPet().getNickname());
+    public void greetPets() {
+        if(super.getFamily().getPets() != null) {
+            for(Pet pet: super.getFamily().getPets()) {
+                System.out.println("Привет лучший друг мужчины, " + pet.getNickname());
+            }
         } else {
             System.out.println("У нас нет питомца");
         }

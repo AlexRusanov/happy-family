@@ -1,14 +1,16 @@
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Random;
+package human;
+
+import enums.DayOfWeek;
+import pet.Pet;
+
+import java.util.*;
 
 public class Human {
     private String name;
     private String surname;
     private int year;
     private byte iq;
-    private String[][] schedule;
+    private SortedMap<Integer, String> schedule;
     private Family family;
 
     static {
@@ -26,14 +28,16 @@ public class Human {
         this.name = name;
         this.surname = surname;
         this.year = year;
+        this.iq = 50;
+        initSchedule();
     }
 
-    public Human(String name, String surname, int year, byte iq, String[][] schedule) {
+    public Human(String name, String surname, int year, byte iq) {
         this.name = name;
         this.surname = surname;
         this.year = year;
         this.iq = iq > 0 && iq <101 ? iq: 50;
-        this.schedule = schedule;
+        initSchedule();
     }
 
     public int getYear() {
@@ -68,11 +72,11 @@ public class Human {
         this.surname = surname;
     }
 
-    public String[][] getSchedule() {
+    public Map<Integer, String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(String[][] schedule) {
+    public void setSchedule(SortedMap<Integer, String> schedule) {
         this.schedule = schedule;
     }
 
@@ -86,13 +90,13 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Human{" +
+        return "human.Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
-                ", schedule=" + Arrays.deepToString(schedule) +
-                '}';
+                ", schedule=[" + prepareScheduleForPrint() +
+                "]}";
     }
 
     @Override
@@ -112,9 +116,11 @@ public class Human {
         return Objects.hash(name, surname, year, iq, family);
     }
 
-    public void greetPet(){
-        if(family.getPet() != null) {
-            System.out.println("Привет, " + family.getPet().getNickname());
+    public void greetPets(){
+        if(family.getPets() != null) {
+            for(Pet pet: family.getPets()){
+                System.out.println("Привет, " + pet.getNickname());
+            }
         } else {
             System.out.println("У нас нет питомца");
         }
@@ -125,31 +131,62 @@ public class Human {
         System.out.println(this);
     }
 
-    public void describePet(){
-        if(family.getPet() != null) {
-            System.out.println("У меня есть " + family.getPet().getSpecies() + ", ему " + family.getPet().getAge() + " лет, он " + (family.getPet().getTrickLevel() > 50 ? "очень хитрый": "почти не хитрый"));
+    public void describePets(){
+        if(family.getPets() != null) {
+            for(Pet pet: family.getPets()) {
+                System.out.println("У меня есть " + pet.getSpecies() + ", ему " + pet.getAge() + " лет, он " + (pet.getTrickLevel() > 50 ? "очень хитрый": "почти не хитрый"));
+            }
         } else {
             System.out.println("У нас нет питомца");
         }
     }
 
-    public boolean feedPet(boolean isItFeedingTime){
-        if(family.getPet() != null) {
+    public boolean feedPets(boolean isItFeedingTime){
+        if(family.getPets() != null) {
             if (isItFeedingTime){
-                System.out.println("Хм... покормлю ка я " + family.getPet().getNickname());
+                for(Pet pet: family.getPets()){
+                    System.out.println("Хм... покормлю ка я " + pet.getNickname());
+                }
                 return true;
             } else {
                 Random random = new Random();
                 byte trick = (byte) random.nextInt(100);
-                if (family.getPet().getTrickLevel() > trick) {
-                    System.out.println("Хм... покормлю ка я " + family.getPet().getNickname());
-                    return true;
+                int petsFeeded = 0;
+                for(Pet pet: family.getPets()){
+                    if (pet.getTrickLevel() > trick) {
+                        System.out.println("Хм... покормлю ка я " + pet.getNickname());
+                        petsFeeded++;
+                    }
                 }
-                return false;
+                return petsFeeded == family.getPets().size();
             }
         } else {
             System.out.println("У нас нет питомца");
             return false;
         }
+    }
+
+    public void initSchedule() {
+        this.schedule = new TreeMap<>();
+        this.schedule.put(DayOfWeek.MONDAY.ordinal(), "");
+        this.schedule.put(DayOfWeek.TUESDAY.ordinal(), "");
+        this.schedule.put(DayOfWeek.WEDNESDAY.ordinal(), "");
+        this.schedule.put(DayOfWeek.THURSDAY.ordinal(), "");
+        this.schedule.put(DayOfWeek.FRIDAY.ordinal(), "");
+        this.schedule.put(DayOfWeek.SATURDAY.ordinal(), "");
+        this.schedule.put(DayOfWeek.SUNDAY.ordinal(), "");
+    }
+
+    private String prepareScheduleForPrint() {
+        int i = 0;
+        StringBuilder result = new StringBuilder();
+        for(Map.Entry<Integer, String> entry : this.schedule.entrySet()) {
+            result.append("[").append(DayOfWeek.values()[i]).append(", ").append(entry.getValue()).append("], ");
+            i++;
+        }
+
+        result.setLength(result.length() - 2);
+
+        return String.valueOf(result);
     }
 }

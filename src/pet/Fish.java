@@ -1,17 +1,20 @@
+package pet;
+
+import enums.Species;
+
+import java.util.Set;
+
 public class Fish extends Pet{
 
     public Fish() {
-        super.setSpecies(Species.FISH);
     }
 
     public Fish(String nickname) {
         super(nickname);
-        super.setSpecies(Species.FISH);
     }
 
-    public Fish(String nickname, int age, byte trickLevel, String[] habits) {
+    public Fish(String nickname, int age, byte trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
-        super.setSpecies(Species.FISH);
     }
 
     @Override

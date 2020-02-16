@@ -1,12 +1,18 @@
+package pet;
+
+import enums.Species;
+
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 
 abstract public class Pet {
-    private Species species = Species.UNKNOWN;
+    private Species species;
     private String nickname;
     private int age;
     private byte trickLevel;
-    private String[] habits;
+    private Set<String> habits;
 
     static {
         System.out.println("Loading class:" + Pet.class);
@@ -14,6 +20,7 @@ abstract public class Pet {
 
     {
         System.out.println("Creating new instance of type " + this.getClass());
+        this.setSpecies(Species.valueOf(this.getClass().getSimpleName().toUpperCase()));
     }
 
     public Pet() {
@@ -23,7 +30,7 @@ abstract public class Pet {
         this.nickname = nickname;
     }
 
-    public Pet(String nickname, int age, byte trickLevel, String[] habits) {
+    public Pet(String nickname, int age, byte trickLevel, Set<String> habits) {
         this.nickname = nickname;
         this.age = age > 0 && age <101 ? age: 0;
         this.trickLevel = trickLevel;
@@ -58,11 +65,11 @@ abstract public class Pet {
         }
     }
 
-    public String[] getHabits() {
+    public Set<String> getHabits() {
         return habits;
     }
 
-    public void setHabits(String[] habits) {
+    public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
 
@@ -72,7 +79,7 @@ abstract public class Pet {
                 "nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + (habits != null ? Arrays.toString(habits) : "No data") +
+                ", habits=" + (habits != null ? habits : "No data") +
                 '}';
     }
 
