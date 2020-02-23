@@ -1,8 +1,6 @@
-package human;
+package model.human;
 
-import pet.Pet;
-
-import java.util.Map;
+import model.pet.Pet;
 
 public final class Man extends Human {
 

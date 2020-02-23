@@ -1,19 +1,16 @@
-package pet;
-
-import enums.Species;
+package model.pet;
 
 import java.util.Set;
 
-public class DomesticCat extends Pet implements FoulingPet {
-
-    public DomesticCat() {
+public class Dog extends Pet implements FoulingPet {
+    public Dog() {
     }
 
-    public DomesticCat(String nickname) {
+    public Dog(String nickname) {
         super(nickname);
     }
 
-    public DomesticCat(String nickname, int age, byte trickLevel, Set<String> habits) {
+    public Dog(String nickname, int age, byte trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
     }
 

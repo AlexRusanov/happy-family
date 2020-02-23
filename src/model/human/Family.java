@@ -1,6 +1,6 @@
-package human;
+package model.human;
 
-import pet.Pet;
+import model.pet.Pet;
 
 import java.util.*;
 
@@ -24,6 +24,7 @@ public class Family {
         this.children = new ArrayList<>();
         mother.setFamily(this);
         father.setFamily(this);
+        this.pets = new HashSet<>();
     }
 
     public Human getMother() {
@@ -68,11 +69,11 @@ public class Family {
 
     @Override
     public String toString() {
-        return "human.Family{" +
+        return "model.human.Family{" +
                 "mother=" + mother +
                 ", father=" + father +
                 ", children=" + children.toString() +
-                ", pet=" + pets +
+                ", model.pet=" + pets +
                 '}';
     }
 
@@ -87,7 +88,13 @@ public class Family {
     }
 
     public boolean deleteChild(Human child) {
-        return this.children.removeIf(ch -> ch.equals(child));
+        boolean isRemoved = this.children.removeIf(ch -> ch.equals(child));
+
+        if(isRemoved) {
+            child.setFamily(null);
+        }
+
+        return isRemoved;
     }
 
     public int countFamily() {

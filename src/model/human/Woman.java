@@ -1,11 +1,8 @@
-package human;
+package model.human;
 
-import enums.DayOfWeek;
-import pet.Pet;
+import model.pet.Pet;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public final class Woman extends Human implements HumanCreator {

@@ -1,7 +1,7 @@
-package human;
+package model.human;
 
-import enums.DayOfWeek;
-import pet.Pet;
+import model.enums.DayOfWeek;
+import model.pet.Pet;
 
 import java.util.*;
 
@@ -90,7 +90,7 @@ public class Human {
 
     @Override
     public String toString() {
-        return "human.Human{" +
+        return "model.human.Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", year=" + year +

@@ -1,12 +1,12 @@
-import enums.DayOfWeek;
-import human.Family;
-import human.Human;
-import human.Man;
-import human.Woman;
+import model.enums.DayOfWeek;
+import model.human.Family;
+import model.human.Human;
+import model.human.Man;
+import model.human.Woman;
 import org.junit.Assert;
 import org.junit.Test;
-import pet.Pet;
-import pet.RoboCat;
+import model.pet.Pet;
+import model.pet.RoboCat;
 
 import java.util.*;
 
@@ -43,7 +43,7 @@ public class FamilyTest {
         son.setSchedule(schedule1);
         family.addChild(son);
         family.setPets(pets);
-        Assert.assertEquals("human.Family{mother=human.Human{name='Leia', surname='Organa', year=1977, iq=99, schedule=[[MONDAY, diplomatic mission], [TUESDAY, To be captured by Darth Vader], [WEDNESDAY, To be rescued], [THURSDAY, Fight with Empire], [FRIDAY, Fall in love with Solo], [SATURDAY, plan an attack on the death star], [SUNDAY, celebrate victory]]}, father=human.Human{name='Han', surname='Solo', year=1977, iq=50, schedule=[[MONDAY, ], [TUESDAY, ], [WEDNESDAY, ], [THURSDAY, ], [FRIDAY, ], [SATURDAY, ], [SUNDAY, ]]}, children=[human.Human{name='Ben', surname='Solo', year=2007, iq=99, schedule=[[MONDAY, Сonquer the galaxy], [TUESDAY, Fight jedi], [WEDNESDAY, Kill the dark lord], [THURSDAY, Fight with Rey], [FRIDAY, Fall in love with Rey], [SATURDAY, Choose the light side], [SUNDAY, Tragically die]]}], pet=[ROBOCAT{nickname='R2D2', age=20, trickLevel=99, habits=[repair starships, hack computer systems]}]}", family.toString());
+        Assert.assertEquals("model.human.Family{mother=model.human.Human{name='Leia', surname='Organa', year=1977, iq=99, schedule=[[MONDAY, diplomatic mission], [TUESDAY, To be captured by Darth Vader], [WEDNESDAY, To be rescued], [THURSDAY, Fight with Empire], [FRIDAY, Fall in love with Solo], [SATURDAY, plan an attack on the death star], [SUNDAY, celebrate victory]]}, father=model.human.Human{name='Han', surname='Solo', year=1977, iq=50, schedule=[[MONDAY, ], [TUESDAY, ], [WEDNESDAY, ], [THURSDAY, ], [FRIDAY, ], [SATURDAY, ], [SUNDAY, ]]}, children=[model.human.Human{name='Ben', surname='Solo', year=2007, iq=99, schedule=[[MONDAY, Сonquer the galaxy], [TUESDAY, Fight jedi], [WEDNESDAY, Kill the dark lord], [THURSDAY, Fight with Rey], [FRIDAY, Fall in love with Rey], [SATURDAY, Choose the light side], [SUNDAY, Tragically die]]}], model.pet=[ROBOCAT{nickname='R2D2', age=20, trickLevel=99, habits=[repair starships, hack computer systems]}]}", family.toString());
     }
 
     @Test

@@ -1,9 +1,8 @@
-import enums.DayOfWeek;
-import human.Human;
+import model.enums.DayOfWeek;
+import model.human.Human;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -20,6 +19,6 @@ public class HumanTest {
         schedule.put(DayOfWeek.SATURDAY.ordinal(), "plan an attack on the death star");
         schedule.put(DayOfWeek.SUNDAY.ordinal(), "celebrate victory");
         human.setSchedule(schedule);
-        Assert.assertEquals("human.Human{name='Leia', surname='Organa', year=1977, iq=99, schedule=[[MONDAY, diplomatic mission], [TUESDAY, To be captured by Darth Vader], [WEDNESDAY, To be rescued], [THURSDAY, Fight with Empire], [FRIDAY, Fall in love with Solo], [SATURDAY, plan an attack on the death star], [SUNDAY, celebrate victory]]}", human.toString());
+        Assert.assertEquals("model.human.Human{name='Leia', surname='Organa', year=1977, iq=99, schedule=[[MONDAY, diplomatic mission], [TUESDAY, To be captured by Darth Vader], [WEDNESDAY, To be rescued], [THURSDAY, Fight with Empire], [FRIDAY, Fall in love with Solo], [SATURDAY, plan an attack on the death star], [SUNDAY, celebrate victory]]}", human.toString());
     }
 }

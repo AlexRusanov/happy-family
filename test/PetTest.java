@@ -1,6 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import pet.RoboCat;
+import model.pet.RoboCat;
 
 import java.util.HashSet;
 import java.util.Set;

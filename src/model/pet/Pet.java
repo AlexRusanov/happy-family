@@ -1,9 +1,7 @@
-package pet;
+package model.pet;
 
-import enums.Species;
+import model.enums.Species;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
