@@ -10,6 +10,7 @@ import model.pet.Pet;
 import java.time.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class FamilyService {
     private final FamilyDao familyDao;
@@ -27,7 +28,7 @@ public class FamilyService {
     }
 
     public void displayAllFamilies() {
-        System.out.println(familyDao.getAllFamilies());
+        familyDao.getAllFamilies().forEach(System.out::println);
     }
 
     public void getFamiliesBiggerThan(int familyMembersCount) {
@@ -94,19 +95,13 @@ public class FamilyService {
     }
 
     public void deleteAllChildrenOlderThen(int age) {
-        List<Family> families = familyDao.getAllFamilies();
-        for (Family family: families) {
-            List<Human> childs = family.getChildren();
-            Human[] chs = new Human[(int) childs.stream().filter(ch -> Math.abs(Period.between(LocalDate.now(), Instant.ofEpochMilli(ch.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate()).getYears()) < age).count()];
-            int i = 0;
-            for (Human child : childs) {
-                if(Math.abs(Period.between(LocalDate.now(), Instant.ofEpochMilli(child.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate()).getYears()) < age){
-                    chs[i] = child;
-                    i++;
-                }
-            }
-            family.setChildren(Arrays.asList(chs));
-        }
+        familyDao.getAllFamilies().forEach(family -> {
+            List<Human> childrenList = family.getChildren().stream()
+                    .filter(child -> Math.abs(Period.between(LocalDate.now(), Instant.ofEpochMilli(child.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate()).getYears()) < age)
+                    .collect(Collectors.toList());
+
+            family.setChildren(childrenList);
+        });
     }
 
     public int count() {

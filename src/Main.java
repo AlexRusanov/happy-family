@@ -41,7 +41,7 @@ public class Main {
         System.out.println("countFamiliesWithMemberNumber 3 -> " + familyController.countFamiliesWithMemberNumber(3));
         System.out.print("\n");
 
-        System.out.println("getAllFamilies ----->>>>>>" + familyController.getAllFamilies());
+        familyController.displayAllFamilies();
 
         familyController.deleteAllChildrenOlderThen(15);
         System.out.print("\n");

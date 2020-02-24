@@ -69,7 +69,7 @@ public class Family {
 
     @Override
     public String toString() {
-        return "model.human.Family{" +
+        return "Family{" +
                 "mother=" + mother +
                 ", father=" + father +
                 ", children=" + children.toString() +
