@@ -29,7 +29,7 @@ public class CollectionFamilyDao implements FamilyDao{
 
     @Override
     public boolean deleteFamily(Family family) {
-        return families.indexOf(family) > -1 && families.remove(family);
+        return families.contains(family) && families.remove(family);
     }
 
     @Override

@@ -25,16 +25,14 @@ public class Main {
         familyController.createNewFamily(mum, dad);
 
         System.out.print("\n");
-        System.out.println("getFamiliesBiggerThan 2");
-        familyController.getFamiliesBiggerThan(2);
+        System.out.println("getFamiliesBiggerThan 2 -> " + familyController.getFamiliesBiggerThan(2));
         System.out.print("\n");
 
         Human rey = new Woman("Rey", "Palpatine", "09/09/2001", (byte) 99);
         familyController.adoptChild(familyController.getFamilyById(1), rey);
 
         System.out.print("\n");
-        System.out.println("getFamiliesLessThan 4");
-        familyController.getFamiliesLessThan(4);
+        System.out.println("getFamiliesLessThan 4 -> " + familyController.getFamiliesLessThan(4));
         System.out.print("\n");
 
         System.out.print("\n");

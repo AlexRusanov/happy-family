@@ -31,16 +31,16 @@ public class FamilyService {
         familyDao.getAllFamilies().forEach(System.out::println);
     }
 
-    public void getFamiliesBiggerThan(int familyMembersCount) {
-        familyDao.getAllFamilies().stream()
+    public List<Family> getFamiliesBiggerThan(int familyMembersCount) {
+        return familyDao.getAllFamilies().stream()
             .filter(family -> family.countFamily() > familyMembersCount)
-            .forEach(System.out::println);
+            .collect(Collectors.toList());
     }
 
-    public void getFamiliesLessThan(int familyMembersCount) {
-        familyDao.getAllFamilies().stream()
+    public List<Family> getFamiliesLessThan(int familyMembersCount) {
+        return familyDao.getAllFamilies().stream()
                 .filter(family -> family.countFamily() < familyMembersCount)
-                .forEach(System.out::println);
+                .collect(Collectors.toList());
     }
 
     public int countFamiliesWithMemberNumber(int familyMembersCount) {
@@ -97,7 +97,7 @@ public class FamilyService {
     public void deleteAllChildrenOlderThen(int age) {
         familyDao.getAllFamilies().forEach(family -> {
             List<Human> childrenList = family.getChildren().stream()
-                    .filter(child -> Math.abs(Period.between(LocalDate.now(), Instant.ofEpochMilli(child.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate()).getYears()) < age)
+                    .filter(child -> Period.between(Instant.ofEpochMilli(child.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now()).getYears() < age)
                     .collect(Collectors.toList());
 
             family.setChildren(childrenList);

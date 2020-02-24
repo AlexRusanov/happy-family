@@ -102,7 +102,7 @@ public class Human {
 
     @Override
     public String toString() {
-        return  this.getClass().getName() + "{" +
+        return  this.getClass().getName().substring(this.getClass().getName().lastIndexOf(".") + 1) + "{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birth date=" + Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate().format(DATE_FORMATTER) +
@@ -203,7 +203,7 @@ public class Human {
     }
 
     public String describeAge() {
-        Period age = Period.between(LocalDate.now(), Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate());
-        return this.name + " на текущий момент прожила " + Math.abs(age.getYears()) + " лет " + Math.abs(age.getMonths()) + " месяцев " + Math.abs(age.getDays()) + " дней";
+        Period age = Period.between(Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
+        return this.name + " на текущий момент прожила " + age.getYears() + " лет " + age.getMonths() + " месяцев " + age.getDays() + " дней";
     }
 }

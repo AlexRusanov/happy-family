@@ -22,12 +22,12 @@ public class FamilyController {
         familyService.displayAllFamilies();
     }
 
-    public void getFamiliesBiggerThan(int familyMembersCount) {
-        familyService.getFamiliesBiggerThan(familyMembersCount);
+    public List<Family> getFamiliesBiggerThan(int familyMembersCount) {
+        return familyService.getFamiliesBiggerThan(familyMembersCount);
     }
 
-    public void getFamiliesLessThan(int familyMembersCount) {
-        familyService.getFamiliesLessThan(familyMembersCount);
+    public List<Family> getFamiliesLessThan(int familyMembersCount) {
+        return familyService.getFamiliesLessThan(familyMembersCount);
     }
 
     public int countFamiliesWithMemberNumber(int familyMembersCount) {
