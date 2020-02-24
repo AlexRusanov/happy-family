@@ -1,30 +1,27 @@
 import controller.FamilyController;
 import dao.CollectionFamilyDao;
-import model.human.Family;
 import model.human.Human;
 import model.human.Man;
 import model.human.Woman;
-import model.pet.Dog;
-import model.pet.Pet;
-import model.pet.RoboCat;
 import service.FamilyService;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         FamilyController familyController = new FamilyController(new FamilyService(new CollectionFamilyDao()));
 
-        Human grandma = new Woman("Padmé", "Amidala", 1952, (byte) 99);
-        Human grandpa = new Man("Anakin", "Skywalker", 1957, (byte) 99);
+        Human grandma = new Woman("Padmé", "Amidala", 34758483355L, (byte) 99);
+
+        System.out.println(grandma.describeAge());
+        System.out.print("\n");
+        System.out.print("\n");
+
+        Human grandpa = new Man("Anakin", "Skywalker", 37778593355L, (byte) 99);
         familyController.createNewFamily(grandma, grandpa);
 
         familyController.bornChild(familyController.getFamilyById(0), "Luke", "Leia");
 
-        Human mum = new Woman("Leia", "Organa", 1977, (byte) 99);
-        Human dad = new Man("Han", "Solo", 1977, (byte) 99);
+        Human mum = new Woman("Leia", "Organa", 666666666L, (byte) 99);
+        Human dad = new Man("Han", "Solo", 666666666L, (byte) 99);
         familyController.createNewFamily(mum, dad);
 
         System.out.print("\n");
@@ -32,7 +29,7 @@ public class Main {
         familyController.getFamiliesBiggerThan(2);
         System.out.print("\n");
 
-        Human rey = new Woman("Rey", "Palpatine", 1995, (byte) 99);
+        Human rey = new Woman("Rey", "Palpatine", "09/09/2001", (byte) 99);
         familyController.adoptChild(familyController.getFamilyById(1), rey);
 
         System.out.print("\n");
@@ -46,9 +43,9 @@ public class Main {
 
         System.out.println("getAllFamilies ----->>>>>>" + familyController.getAllFamilies());
 
-        familyController.deleteAllChildrenOlderThen(20);
+        familyController.deleteAllChildrenOlderThen(15);
         System.out.print("\n");
-        System.out.println("deleteAllChildrenOlderThen 20 -> " + familyController.getAllFamilies());
+        System.out.println("deleteAllChildrenOlderThen 15 -> " + familyController.getAllFamilies());
 
         System.out.print("\n");
 

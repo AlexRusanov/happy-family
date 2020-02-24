@@ -105,17 +105,17 @@ public class FamilyServiceTest {
         Human dad1 = new Man("Dad", "1", 1977);
         Human mum2 = new Woman("Mum", "2", 1977, (byte) 99);
         Human dad2 = new Man("Dad", "2", 1977);
-        Human child1 = new Woman("Mary", "family1", 1995, (byte) 99);
-        Human child2 = new Man("John", "family1", 2015, (byte) 99);
-        Human child3 = new Woman("Mary", "family2", 2017, (byte) 99);
-        Human child4 = new Man("John", "family2", 1997, (byte) 99);
+        Human child1 = new Woman("Mary", "family1", 1295995978359L, (byte) 99);
+        Human child2 = new Man("John", "family1", 999999934399L, (byte) 99);
+        Human child3 = new Woman("Mary", "family2", 999999934399L, (byte) 99);
+        Human child4 = new Man("John", "family2", 1295995978359L, (byte) 99);
         familyService.createNewFamily(mum1, dad1);
         familyService.createNewFamily(mum2, dad2);
         familyService.adoptChild(familyService.getFamilyById(0), child1);
         familyService.adoptChild(familyService.getFamilyById(0), child2);
         familyService.adoptChild(familyService.getFamilyById(1), child3);
         familyService.adoptChild(familyService.getFamilyById(1), child4);
-        familyService.deleteAllChildrenOlderThen(10);
+        familyService.deleteAllChildrenOlderThen(17);
         Assert.assertEquals(2, familyService.countFamiliesWithMemberNumber(3));
     }
 

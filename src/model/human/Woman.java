@@ -5,19 +5,23 @@ import model.pet.Pet;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-public final class Woman extends Human implements HumanCreator {
+public final class Woman extends Human {
 
-    public static final String[] WOMANNAMES = {"Mara", "Leia", "Padmé", "Shmi", "Rey"};
+//    public static final String[] WOMANNAMES = {"Mara", "Leia", "Padmé", "Shmi", "Rey"};
 
     public Woman() {
     }
 
-    public Woman(String name, String surname, int year) {
-        super(name, surname, year);
+    public Woman(String name, String surname, long birthDate) {
+        super(name, surname, birthDate);
     }
 
-    public Woman(String name, String surname, int year, byte iq) {
-        super(name, surname, year, iq);
+    public Woman(String name, String surname, long birthDate, byte iq) {
+        super(name, surname, birthDate, iq);
+    }
+
+    public Woman(String name, String surname, String birthDate, byte iq) {
+        super(name, surname, birthDate, iq);
     }
 
     @Override
@@ -35,22 +39,22 @@ public final class Woman extends Human implements HumanCreator {
         System.out.println("Какой у меня макияж!");
     }
 
-    @Override
-    public Human bornChild() {
-        Human child;
-
-        Random random = new Random();
-
-        Human dad = this.getFamily().getFather();
-
-        if (random.nextBoolean()) {
-            child = new Man(Man.MANNAMES[random.nextInt(5) - 1], dad.getSurname(), LocalDateTime.now().getYear(), (byte)((dad.getIq() + this.getIq())/2));
-        } else {
-            child = new Woman(Woman.WOMANNAMES[random.nextInt(5) - 1], dad.getSurname(), LocalDateTime.now().getYear(), (byte)((dad.getIq() + this.getIq())/2));
-        }
-
-        this.getFamily().addChild(child);
-
-        return child;
-    }
+//    @Override
+//    public Human bornChild() {
+//        Human child;
+//
+//        Random random = new Random();
+//
+//        Human dad = this.getFamily().getFather();
+//
+//        if (random.nextBoolean()) {
+//            child = new Man(Man.MANNAMES[random.nextInt(5) - 1], dad.getSurname(), LocalDateTime.now().getYear(), (byte)((dad.getIq() + this.getIq())/2));
+//        } else {
+//            child = new Woman(Woman.WOMANNAMES[random.nextInt(5) - 1], dad.getSurname(), LocalDateTime.now().getYear(), (byte)((dad.getIq() + this.getIq())/2));
+//        }
+//
+//        this.getFamily().addChild(child);
+//
+//        return child;
+//    }
 }

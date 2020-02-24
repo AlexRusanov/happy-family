@@ -3,45 +3,57 @@ package model.human;
 import model.enums.DayOfWeek;
 import model.pet.Pet;
 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Human {
     private String name;
     private String surname;
-    private int year;
+    private long birthDate;
     private byte iq;
     private SortedMap<Integer, String> schedule;
     private Family family;
+    private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     static {
         System.out.println("Loading class: " + Human.class);
     }
 
     {
-        System.out.println("Creating new instance of type " + this.getClass());
+        System.out.println("Creating new instance of type " + this.getClass().getName());
     }
 
     public Human() {
     }
 
-    public Human(String name, String surname, int year) {
+    public Human(String name, String surname, long birthDate) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.iq = 50;
         initSchedule();
     }
 
-    public Human(String name, String surname, int year, byte iq) {
+    public Human(String name, String surname, long birthDate, byte iq) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.iq = iq > 0 && iq <101 ? iq: 50;
         initSchedule();
     }
 
-    public int getYear() {
-        return year;
+    //FOR ADOPTED CHILDREN
+    public Human(String name, String surname, String birthDate, byte iq) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = LocalDate.parse(birthDate, DATE_FORMATTER).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        this.iq = iq;
+        initSchedule();
+    }
+
+    public long getBirthDate() {
+        return birthDate;
     }
 
     public byte getIq() {
@@ -90,10 +102,10 @@ public class Human {
 
     @Override
     public String toString() {
-        return "model.human.Human{" +
+        return  this.getClass().getName() + "{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", year=" + year +
+                ", birth date=" + Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate().format(DATE_FORMATTER) +
                 ", iq=" + iq +
                 ", schedule=[" + prepareScheduleForPrint() +
                 "]}";
@@ -104,7 +116,7 @@ public class Human {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Human human = (Human) o;
-        return year == human.year &&
+        return birthDate == human.birthDate &&
                 iq == human.iq &&
                 Objects.equals(name, human.name) &&
                 Objects.equals(surname, human.surname) &&
@@ -113,7 +125,7 @@ public class Human {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, year, iq, family);
+        return Objects.hash(name, surname, birthDate, iq, family);
     }
 
     public void greetPets(){
@@ -166,7 +178,7 @@ public class Human {
         }
     }
 
-    public void initSchedule() {
+    private void initSchedule() {
         this.schedule = new TreeMap<>();
         this.schedule.put(DayOfWeek.MONDAY.ordinal(), "");
         this.schedule.put(DayOfWeek.TUESDAY.ordinal(), "");
@@ -188,5 +200,10 @@ public class Human {
         result.setLength(result.length() - 2);
 
         return String.valueOf(result);
+    }
+
+    public String describeAge() {
+        Period age = Period.between(LocalDate.now(), Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate());
+        return this.name + " на текущий момент прожила " + Math.abs(age.getYears()) + " лет " + Math.abs(age.getMonths()) + " месяцев " + Math.abs(age.getDays()) + " дней";
     }
 }

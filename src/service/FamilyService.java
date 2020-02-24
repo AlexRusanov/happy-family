@@ -7,9 +7,9 @@ import model.human.Man;
 import model.human.Woman;
 import model.pet.Pet;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class FamilyService {
     private final FamilyDao familyDao;
@@ -75,9 +75,9 @@ public class FamilyService {
         Human mum = family.getMother();
 
         if (random.nextBoolean()) {
-            child = new Man(mansName, dad.getSurname(), LocalDateTime.now().getYear(), (byte)((dad.getIq() + mum.getIq())/2));
+            child = new Man(mansName, dad.getSurname(), Instant.now().toEpochMilli(), (byte)((dad.getIq() + mum.getIq())/2));
         } else {
-            child = new Woman(womansName, dad.getSurname(), LocalDateTime.now().getYear(), (byte)((dad.getIq() + mum.getIq())/2));
+            child = new Woman(womansName, dad.getSurname(), Instant.now().toEpochMilli(), (byte)((dad.getIq() + mum.getIq())/2));
         }
 
         family.addChild(child);
@@ -97,10 +97,10 @@ public class FamilyService {
         List<Family> families = familyDao.getAllFamilies();
         for (Family family: families) {
             List<Human> childs = family.getChildren();
-            Human[] chs = new Human[(int) childs.stream().filter(ch -> LocalDate.now().getYear() - ch.getYear() < age).count()];
+            Human[] chs = new Human[(int) childs.stream().filter(ch -> Math.abs(Period.between(LocalDate.now(), Instant.ofEpochMilli(ch.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate()).getYears()) < age).count()];
             int i = 0;
             for (Human child : childs) {
-                if(LocalDate.now().getYear() - child.getYear() < age){
+                if(Math.abs(Period.between(LocalDate.now(), Instant.ofEpochMilli(child.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate()).getYears()) < age){
                     chs[i] = child;
                     i++;
                 }

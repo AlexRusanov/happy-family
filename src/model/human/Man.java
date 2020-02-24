@@ -4,17 +4,21 @@ import model.pet.Pet;
 
 public final class Man extends Human {
 
-    public static final String[] MANNAMES = {"Ben", "Kol", "Nat", "Cade", "Luke", "Anakin"};
+//    public static final String[] MANNAMES = {"Ben", "Kol", "Nat", "Cade", "Luke", "Anakin"};
 
     public Man() {
     }
 
-    public Man(String name, String surname, int year) {
-        super(name, surname, year);
+    public Man(String name, String surname, long birthDate) {
+        super(name, surname, birthDate);
     }
 
-    public Man(String name, String surname, int year, byte iq) {
-        super(name, surname, year, iq);
+    public Man(String name, String surname, long birthDate, byte iq) {
+        super(name, surname, birthDate, iq);
+    }
+
+    public Man(String name, String surname, String birthDate, byte iq) {
+        super(name, surname, birthDate, iq);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class Family {
     }
 
     {
-        System.out.println("Creating new instance of type " + this.getClass());
+        System.out.println("Creating new instance of type " + this.getClass().getName());
     }
 
     public Family(Human mother, Human father) {
