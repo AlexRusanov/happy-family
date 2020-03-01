@@ -65,4 +65,8 @@ public class FamilyController {
     public boolean addPet(int familyIndex, Pet pet) {
         return familyService.addPet(familyIndex, pet);
     }
+
+    public void initTestRepo() {
+        familyService.initTestRepo();
+    }
 }

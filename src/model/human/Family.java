@@ -10,14 +10,6 @@ public class Family {
     private List<Human> children;
     private Set<Pet> pets;
 
-    static {
-        System.out.println("Loading class:" + Family.class);
-    }
-
-    {
-        System.out.println("Creating new instance of type " + this.getClass().getName());
-    }
-
     public Family(Human mother, Human father) {
         this.mother = mother;
         this.father = father;
@@ -69,12 +61,7 @@ public class Family {
 
     @Override
     public String toString() {
-        return "Family{" +
-                "mother=" + mother +
-                ", father=" + father +
-                ", children=" + children.toString() +
-                ", model.pet=" + pets +
-                '}';
+        return prettyFormat();
     }
 
     @Override
@@ -99,5 +86,21 @@ public class Family {
 
     public int countFamily() {
         return 2 + children.size();
+    }
+
+    private String prettyFormatChildren() {
+        return children.stream().map(child -> "\t\t" + (child.getClass().getSimpleName().equals("Man") ? "boy" : "girl") + ": {name='" + child.getName() + "', surname='" + child.getSurname() + "', birthDate='" + child.formatBirthDate() + "', iq=" + child.getIq() + ", schedule={" + child.prepareScheduleForPrint() + "}}\n").reduce("", String::concat);
+    }
+
+    private String prettyFormatPets() {
+        return pets.stream().map(Pet::prettyFormat).reduce("", String::concat);
+    }
+
+    public String prettyFormat() {
+        return "Family: \n" +
+                "\tmother: {name='" + this.getMother().getName() + "', surname='" + this.getMother().getSurname() + "', birthDate='" + this.getMother().formatBirthDate() + "', iq=" + this.getMother().getIq() + ", schedule={" + this.getMother().prepareScheduleForPrint() + "}},\n" +
+                "\tfather: {name='" + this.getFather().getName() + "', surname='" + this.getFather().getSurname() + "', birthDate='" + this.getFather().formatBirthDate() + "', iq=" + this.getFather().getIq() + ", schedule={" + this.getFather().prepareScheduleForPrint() + "}},\n" +
+                (this.getChildren().size() != 0 ? "\tchildren: \n" + prettyFormatChildren() : "") +
+                (this.getPets().size() != 0 ? "\tpets: \n" + prettyFormatPets() : "");
     }
 }

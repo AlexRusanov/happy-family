@@ -12,15 +12,6 @@ abstract public class Pet {
     private byte trickLevel;
     private Set<String> habits;
 
-    static {
-        System.out.println("Loading class:" + Pet.class);
-    }
-
-    {
-        System.out.println("Creating new instance of type " + this.getClass());
-        this.setSpecies(Species.valueOf(this.getClass().getSimpleName().toUpperCase()));
-    }
-
     public Pet() {
     }
 
@@ -107,4 +98,8 @@ abstract public class Pet {
     }
 
     abstract public void respond();
+
+    public String prettyFormat() {
+        return "\t\t{species=" + this.getClass().getSimpleName().toUpperCase() + ", nickname='" + this.getNickname() + "', age=" + this.getAge() + ", trickLevel=" + this.getTrickLevel() + ", habits=" + this.getHabits() + "}\n";
+    }
 }

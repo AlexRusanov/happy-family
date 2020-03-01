@@ -16,14 +16,6 @@ public class Human {
     private Family family;
     private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    static {
-        System.out.println("Loading class: " + Human.class);
-    }
-
-    {
-        System.out.println("Creating new instance of type " + this.getClass().getName());
-    }
-
     public Human() {
     }
 
@@ -102,10 +94,10 @@ public class Human {
 
     @Override
     public String toString() {
-        return  this.getClass().getName().substring(this.getClass().getName().lastIndexOf(".") + 1) + "{" +
+        return  this.getClass().getSimpleName() + "{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", birth date=" + Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate().format(DATE_FORMATTER) +
+                ", birth date=" + formatBirthDate() +
                 ", iq=" + iq +
                 ", schedule=[" + prepareScheduleForPrint() +
                 "]}";
@@ -189,7 +181,7 @@ public class Human {
         this.schedule.put(DayOfWeek.SUNDAY.ordinal(), "");
     }
 
-    private String prepareScheduleForPrint() {
+    public String prepareScheduleForPrint() {
         int i = 0;
         StringBuilder result = new StringBuilder();
         for(Map.Entry<Integer, String> entry : this.schedule.entrySet()) {
@@ -205,5 +197,9 @@ public class Human {
     public String describeAge() {
         Period age = Period.between(Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
         return this.name + " на текущий момент прожила " + age.getYears() + " лет " + age.getMonths() + " месяцев " + age.getDays() + " дней";
+    }
+
+    public String formatBirthDate() {
+        return Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate().format(DATE_FORMATTER);
     }
 }

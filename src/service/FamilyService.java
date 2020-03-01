@@ -5,12 +5,15 @@ import model.human.Family;
 import model.human.Human;
 import model.human.Man;
 import model.human.Woman;
+import model.pet.Dog;
 import model.pet.Pet;
+import model.pet.RoboCat;
 
 import java.time.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FamilyService {
     private final FamilyDao familyDao;
@@ -28,7 +31,11 @@ public class FamilyService {
     }
 
     public void displayAllFamilies() {
-        familyDao.getAllFamilies().forEach(System.out::println);
+        IntStream.range(0, familyDao.getAllFamilies().size())
+                .mapToObj(i -> (i + 1) + ". " + familyDao.getAllFamilies().get(i))
+                .forEach(System.out::println);
+
+
     }
 
     public List<Family> getFamiliesBiggerThan(int familyMembersCount) {
@@ -125,5 +132,28 @@ public class FamilyService {
         } else {
             return pets.add(pet);
         }
+    }
+
+    public void initTestRepo() {
+        Human grandma = new Woman("Padmé", "Amidala", 34758483355L, (byte) 99);
+
+        Human grandpa = new Man("Anakin", "Skywalker", 37778593355L, (byte) 99);
+        createNewFamily(grandma, grandpa);
+
+        bornChild(getFamilyById(0), "Luke", "Leia");
+        bornChild(getFamilyById(0), "John", "Luna");
+
+        Set<String> habbits = new HashSet<>();
+        habbits.add("hack computer systems");
+        habbits.add("repair starships");
+        Set<Pet> pets = new HashSet<>();
+        pets.add(new RoboCat("R2D2", 20, (byte) 99, habbits));
+        pets.add(new Dog("Шарик", 7, (byte) 50, null));
+
+        getFamilyById(0).setPets(pets);
+
+        Woman mum = new Woman("Leia", "Organa", 1977, (byte) 99);
+        Man dad = new Man("Han", "Solo", 1977, (byte) 99);
+        createNewFamily(mum, dad);
     }
 }
