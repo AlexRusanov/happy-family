@@ -16,4 +16,6 @@ public interface FamilyDao {
     boolean saveFamily(Family family);
     
     boolean updateFamily(int familyIndex, Family family);
+
+    boolean saveFamilies(List<Family> families);
 }

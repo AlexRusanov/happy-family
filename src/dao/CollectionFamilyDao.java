@@ -43,4 +43,9 @@ public class CollectionFamilyDao implements FamilyDao{
         families.add(familyIndex, family);
         return families.contains(family);
     }
+
+    @Override
+    public boolean saveFamilies(List<Family> families) {
+        return this.families.addAll(families);
+    }
 }

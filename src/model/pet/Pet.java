@@ -2,10 +2,11 @@ package model.pet;
 
 import model.enums.Species;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-abstract public class Pet {
+abstract public class Pet implements Serializable{
     private Species species;
     private String nickname;
     private int age;

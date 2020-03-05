@@ -3,11 +3,12 @@ package model.human;
 import model.enums.DayOfWeek;
 import model.pet.Pet;
 
+import java.io.Serializable;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class Human {
+public class Human implements Serializable{
     private String name;
     private String surname;
     private long birthDate;

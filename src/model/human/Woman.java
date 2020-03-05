@@ -2,9 +2,6 @@ package model.human;
 
 import model.pet.Pet;
 
-import java.time.LocalDateTime;
-import java.util.Random;
-
 public final class Woman extends Human {
 
 //    public static final String[] WOMANNAMES = {"Mara", "Leia", "Padmé", "Shmi", "Rey"};

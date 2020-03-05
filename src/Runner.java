@@ -1,7 +1,6 @@
 import com.sun.xml.internal.ws.util.StringUtils;
 import controller.FamilyController;
 import dao.CollectionFamilyDao;
-import exceptions.FamilyOverflowException;
 import model.human.Human;
 import model.human.Woman;
 import service.FamilyService;
@@ -28,7 +27,9 @@ public class Runner {
                     "\t1. Родить ребенка\n" +
                     "\t2. Усыновить ребенка\n" +
                     "\t3. Вернуться в главное меню\n" +
-                    "9. Удалить всех детей старше возраста (во всех семьях удаляются дети старше указанного возраста - будем считать, что они выросли)\n"
+                    "9. Удалить всех детей старше возраста (во всех семьях удаляются дети старше указанного возраста - будем считать, что они выросли)\n" +
+                    "10. Сохранить список семей в файл\n" +
+                    "11. Загрузить список семей из файла\n"
             );
             System.out.print("\n");
             System.out.print("Введите номер команды или exit для выхода из приложения\n");
@@ -115,11 +116,7 @@ public class Runner {
                                 String boysName = StringUtils.capitalize(scanner.nextLine().trim().toLowerCase());
                                 System.out.print("Введите имя девочки\n");
                                 String girlsName = StringUtils.capitalize(scanner.nextLine().trim().toLowerCase());
-                                if (familyController.getFamilyById(familyId).countFamily() > 3) {
-                                    throw new FamilyOverflowException("Размер семьи не позволяет вам иметь больше детей", 4);
-                                } else {
-                                    familyController.bornChild(familyController.getFamilyById(familyId), boysName, girlsName);
-                                }
+                                familyController.bornChild(familyController.getFamilyById(familyId), boysName, girlsName);
                                 break;
                             case ("2"):
                                 System.out.print("Введите номер семьи\n");
@@ -132,11 +129,7 @@ public class Runner {
                                 String childsYear = scanner.nextLine().trim();
                                 System.out.print("Введите IQ ребенка\n");
                                 String childsIq = scanner.nextLine().trim();
-                                if (familyController.getFamilyById(familyId).countFamily() > 3) {
-                                    throw new FamilyOverflowException("Размер семьи не позволяет вам иметь больше детей", 4);
-                                } else {
-                                    familyController.adoptChild(familyController.getFamilyById(familyId), new Human(childName, childSurName, "01/01/" + childsYear, (byte)Integer.parseInt(childsIq)));
-                                }
+                                familyController.adoptChild(familyController.getFamilyById(familyId), new Human(childName, childSurName, "01/01/" + childsYear, (byte)Integer.parseInt(childsIq)));
                                 break;
                             case ("3"):
                                 break;
@@ -150,13 +143,16 @@ public class Runner {
                         userInput = scanner.nextLine().trim();
                         familyController.deleteAllChildrenOlderThen(Integer.parseInt(userInput));
                         break;
+                    case ("10"):
+                        familyController.writeDataToFile();
+                        break;
+                    case ("11"):
+                        familyController.loadData();
+                        break;
                     default:
                         System.out.println("Вы ввели не валидные данные");
                         break;
                 }
-            } catch (FamilyOverflowException ex) {
-                System.out.println(ex.getMessage());
-                System.out.println(ex.getNumber());
             } catch (RuntimeException ex) {
                 System.out.println("Вы ввели некорректные данные, что привело к возникновению ошибки - " + ex.getCause() + ex.getMessage() + "\n" + "приложение будет перезапущено");
             }

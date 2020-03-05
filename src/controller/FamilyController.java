@@ -1,10 +1,13 @@
 package controller;
 
+import exceptions.FamilyOverflowException;
 import model.human.Family;
 import model.human.Human;
 import model.pet.Pet;
 import service.FamilyService;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyController {
@@ -43,11 +46,29 @@ public class FamilyController {
     }
 
     public Family bornChild(Family family, String mansName, String womansName) {
-        return familyService.bornChild(family, mansName, womansName);
+        Family result = family;
+
+        try {
+            result = familyService.bornChild(family, mansName, womansName);
+        } catch (FamilyOverflowException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getNumber());
+        }
+
+        return result;
     }
 
     public Family adoptChild(Family family, Human child) {
-        return familyService.adoptChild(family, child);
+        Family result = family;
+
+        try {
+            result = familyService.adoptChild(family, child);
+        } catch (FamilyOverflowException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getNumber());
+        }
+
+        return result;
     }
 
     public void deleteAllChildrenOlderThen(int age) {
@@ -68,5 +89,28 @@ public class FamilyController {
 
     public void initTestRepo() {
         familyService.initTestRepo();
+    }
+
+    public boolean loadData() {
+        List<Family> families = new ArrayList<>();
+
+        try (FileInputStream fileInputStream = new FileInputStream("families.txt");
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+            families = (List<Family>) objectInputStream.readObject();
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return families.size() > 0 && familyService.loadData(families);
+    }
+
+    public void writeDataToFile() {
+        List<Family> families = familyService.getAllFamilies();
+        try(FileOutputStream fileOutputStream = new FileOutputStream("families.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+            objectOutputStream.writeObject(families);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

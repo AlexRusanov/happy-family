@@ -1,6 +1,7 @@
 package service;
 
 import dao.FamilyDao;
+import exceptions.FamilyOverflowException;
 import model.human.Family;
 import model.human.Human;
 import model.human.Man;
@@ -75,6 +76,10 @@ public class FamilyService {
     }
 
     public Family bornChild(Family family, String mansName, String womansName) {
+        if (family.countFamily() > 3) {
+            throw new FamilyOverflowException("Размер семьи не позволяет вам иметь больше детей", 4);
+        }
+
         Human child;
 
         Random random = new Random();
@@ -94,6 +99,10 @@ public class FamilyService {
     }
 
     public Family adoptChild(Family family, Human child) {
+        if (family.countFamily() > 3) {
+            throw new FamilyOverflowException("Размер семьи не позволяет вам иметь больше детей", 4);
+        }
+
         family.addChild(child);
 
         updateFamilyByValue(family);
@@ -155,5 +164,9 @@ public class FamilyService {
         Woman mum = new Woman("Leia", "Organa", 1977, (byte) 99);
         Man dad = new Man("Han", "Solo", 1977, (byte) 99);
         createNewFamily(mum, dad);
+    }
+
+    public boolean loadData(List<Family> families) {
+        return familyDao.saveFamilies(families);
     }
 }
